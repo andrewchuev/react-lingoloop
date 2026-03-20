@@ -1,13 +1,67 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>lingo-loop-reader</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LingoLoop — Multilingual Text-to-Speech Listening Practice</title>
+
+    <meta
+            name="description"
+            content="LingoLoop is a multilingual text-to-speech listening practice app. Paste text, choose a narrator language and voice, control reading speed, and repeat playback."
+    />
+    <meta name="application-name" content="LingoLoop"/>
+    <meta name="robots" content="index,follow"/>
+
+    <link rel="canonical" href="https://example.com/"/>
+
+    <meta
+            name="theme-color"
+            media="(prefers-color-scheme: light)"
+            content="#f8fafc"
+    />
+    <meta
+            name="theme-color"
+            media="(prefers-color-scheme: dark)"
+            content="#020617"
+    />
+
+    <meta
+            property="og:title"
+            content="LingoLoop — Multilingual Text-to-Speech Listening Practice"
+    />
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://example.com/"/>
+    <meta
+            property="og:description"
+            content="Paste text, choose a narrator language and voice, control reading speed, and repeat playback for focused listening practice."
+    />
+    <meta property="og:image" content="https://example.com/og-cover.jpg"/>
+    <meta property="og:site_name" content="LingoLoop"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta
+            name="twitter:title"
+            content="LingoLoop — Multilingual Text-to-Speech Listening Practice"
+    />
+    <meta
+            name="twitter:description"
+            content="Practice listening with adjustable reading speed, repeats, narrator language, and voice selection."
+    />
+    <meta name="twitter:image" content="https://example.com/og-cover.jpg"/>
+
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem("lingoloop.theme");
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const theme =
+                savedTheme === "dark" || (!savedTheme && prefersDark) ? "dark" : "light";
+
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+</head>
+<body>
+<div id="root"></div>
+<script type="module" src="/src/main.tsx"></script>
+</body>
 </html>

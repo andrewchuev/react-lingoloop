@@ -89,7 +89,7 @@ function getLanguageLabel(lang: string): string {
     const code = normalizeLanguageCode(lang);
 
     try {
-        return new Intl.DisplayNames(["en"], { type: "language" }).of(code) ?? code.toUpperCase();
+        return new Intl.DisplayNames(["en"], {type: "language"}).of(code) ?? code.toUpperCase();
     } catch {
         return code.toUpperCase();
     }
@@ -114,8 +114,8 @@ function splitTextIntoSentences(text: string, lang: string): string[] {
 
     if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
         try {
-            const segmenter = new Intl.Segmenter(lang, { granularity: "sentence" });
-            const segments = Array.from(segmenter.segment(trimmed), ({ segment }) =>
+            const segmenter = new Intl.Segmenter(lang, {granularity: "sentence"});
+            const segments = Array.from(segmenter.segment(trimmed), ({segment}) =>
                 segment.trim()
             ).filter(Boolean);
 
@@ -145,7 +145,7 @@ type SpeakOnceParams = {
 };
 
 function speakOnce(params: SpeakOnceParams): Promise<void> {
-    const { text, rate, voice, lang } = params;
+    const {text, rate, voice, lang} = params;
 
     return new Promise((resolve, reject) => {
         const utterance = new SpeechSynthesisUtterance(text);
@@ -168,7 +168,7 @@ function speakOnce(params: SpeakOnceParams): Promise<void> {
     });
 }
 
-function ThemeIcon({ theme }: { theme: ThemeMode }) {
+function ThemeIcon({theme}: { theme: ThemeMode }) {
     if (theme === "dark") {
         return (
             <svg
@@ -181,15 +181,15 @@ function ThemeIcon({ theme }: { theme: ThemeMode }) {
                 strokeLinejoin="round"
                 aria-hidden="true"
             >
-                <circle cx="12" cy="12" r="4" />
-                <path d="M12 2v2.5" />
-                <path d="M12 19.5V22" />
-                <path d="M2 12h2.5" />
-                <path d="M19.5 12H22" />
-                <path d="M4.93 4.93l1.77 1.77" />
-                <path d="M17.3 17.3l1.77 1.77" />
-                <path d="M17.3 6.7l1.77-1.77" />
-                <path d="M4.93 19.07l1.77-1.77" />
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 2v2.5"/>
+                <path d="M12 19.5V22"/>
+                <path d="M2 12h2.5"/>
+                <path d="M19.5 12H22"/>
+                <path d="M4.93 4.93l1.77 1.77"/>
+                <path d="M17.3 17.3l1.77 1.77"/>
+                <path d="M17.3 6.7l1.77-1.77"/>
+                <path d="M4.93 19.07l1.77-1.77"/>
             </svg>
         );
     }
@@ -205,7 +205,7 @@ function ThemeIcon({ theme }: { theme: ThemeMode }) {
             strokeLinejoin="round"
             aria-hidden="true"
         >
-            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
         </svg>
     );
 }
@@ -584,7 +584,7 @@ export default function LingoLoopReader() {
                         <span className="sr-only">
                             {theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
                         </span>
-                        <ThemeIcon theme={theme} />
+                        <ThemeIcon theme={theme}/>
                     </button>
                 </div>
 
@@ -601,53 +601,12 @@ export default function LingoLoopReader() {
                             id="reader-text"
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            rows={10}
+                            rows={5}
                             placeholder="Paste any text here..."
                             className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-400 focus:ring-4 focus:ring-slate-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-slate-500 dark:focus:ring-slate-800"
                         />
                     </div>
 
-                    <div className="mb-4 flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
-                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-                            <span className="text-sm font-medium text-slate-700 dark:text-slate-200">
-                                Playback mode
-                            </span>
-
-                            <div className="inline-flex rounded-2xl border border-slate-300 bg-slate-100 p-1 dark:border-slate-700 dark:bg-slate-950/60">
-                                <button
-                                    type="button"
-                                    onClick={() => setPlaybackMode("whole-text")}
-                                    className={[
-                                        "rounded-xl px-3 py-2 text-sm transition",
-                                        playbackMode === "whole-text"
-                                            ? "bg-white text-slate-900 shadow-sm dark:bg-slate-800 dark:text-slate-100"
-                                            : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100",
-                                    ].join(" ")}
-                                >
-                                    Whole text
-                                </button>
-
-                                <button
-                                    type="button"
-                                    onClick={() => setPlaybackMode("sentence-by-sentence")}
-                                    className={[
-                                        "rounded-xl px-3 py-2 text-sm transition",
-                                        playbackMode === "sentence-by-sentence"
-                                            ? "bg-white text-slate-900 shadow-sm dark:bg-slate-800 dark:text-slate-100"
-                                            : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100",
-                                    ].join(" ")}
-                                >
-                                    Sentence by sentence
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="text-xs text-slate-500 dark:text-slate-400">
-                            {playbackMode === "sentence-by-sentence"
-                                ? `Detected sentences: ${sentenceSegments.length}`
-                                : "The entire text will be played as one block."}
-                        </div>
-                    </div>
 
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-12">
                         <ControlCard label="Narrator language" className="xl:col-span-3">
@@ -709,7 +668,7 @@ export default function LingoLoopReader() {
                             </div>
                         </ControlCard>
 
-                        <ControlCard label="Repeats" className="xl:col-span-3">
+                        <ControlCard label="Repeats" className="xl:col-span-2">
                             <input
                                 id="repeatCount"
                                 type="number"
@@ -721,7 +680,7 @@ export default function LingoLoopReader() {
                             />
                         </ControlCard>
 
-                        <ControlCard label="Pause between repeats (ms)" className="xl:col-span-3">
+                        <ControlCard label="Pause between repeats (ms)" className="xl:col-span-2">
                             <input
                                 id="pauseBetweenRepeats"
                                 type="number"
@@ -733,6 +692,48 @@ export default function LingoLoopReader() {
                                 className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-slate-500 dark:focus:ring-slate-800"
                             />
                         </ControlCard>
+
+                        <ControlCard label="Playback mode" className="xl:col-span-8 flex flex-col gap-3">
+                            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+
+
+                                <div className="inline-flex rounded-2xl border border-slate-300 bg-slate-100 p-1 dark:border-slate-700 dark:bg-slate-950/60">
+                                    <button
+                                        type="button"
+                                        onClick={() => setPlaybackMode("whole-text")}
+                                        className={[
+                                            "rounded-xl px-3 py-2 text-sm transition",
+                                            playbackMode === "whole-text"
+                                                ? "bg-white text-slate-900 shadow-sm dark:bg-slate-800 dark:text-slate-100"
+                                                : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100",
+                                        ].join(" ")}
+                                    >
+                                        Whole text
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setPlaybackMode("sentence-by-sentence")}
+                                        className={[
+                                            "rounded-xl px-3 py-2 text-sm transition",
+                                            playbackMode === "sentence-by-sentence"
+                                                ? "bg-white text-slate-900 shadow-sm dark:bg-slate-800 dark:text-slate-100"
+                                                : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100",
+                                        ].join(" ")}
+                                    >
+                                        Sentence by sentence
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="text-xs text-slate-500 dark:text-slate-400">
+                                {playbackMode === "sentence-by-sentence"
+                                    ? `Detected sentences: ${sentenceSegments.length}`
+                                    : "The entire text will be played as one block."}
+                            </div>
+                        </ControlCard>
+
+
                     </div>
 
                     {playbackMode === "sentence-by-sentence" && (

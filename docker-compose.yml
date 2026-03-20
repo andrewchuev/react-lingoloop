@@ -1,0 +1,11 @@
+services:
+  lingoloop:
+    image: lingoloop:production
+    pull_policy: never
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lingoloop
+    restart: unless-stopped
+    ports:
+      - "8080:80"
