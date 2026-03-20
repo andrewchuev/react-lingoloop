@@ -508,7 +508,14 @@ export default function LingoLoopReader() {
         } catch (err) {
             const message =
                 err instanceof Error ? err.message : "Unknown speech synthesis error";
-            setError(message);
+
+            const isExpectedStop =
+                stopRequestedRef.current &&
+                (message === "interrupted" || message === "canceled");
+
+            if (!isExpectedStop) {
+                setError(message);
+            }
         } finally {
             setCurrentSentenceIndex(null);
             setPlayerState("idle");
@@ -539,6 +546,7 @@ export default function LingoLoopReader() {
         }
 
         stopRequestedRef.current = true;
+        setError("");
         window.speechSynthesis.cancel();
         setCurrentSentenceIndex(null);
         setPlayerState("idle");
