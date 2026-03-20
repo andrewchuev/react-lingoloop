@@ -9,3 +9,7 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
 }
+
+textarea {
+  resize: none;
+}

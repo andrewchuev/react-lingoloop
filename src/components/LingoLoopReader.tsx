@@ -606,6 +606,7 @@ export default function LingoLoopReader() {
                         </label>
 
                         <textarea
+
                             id="reader-text"
                             value={text}
                             onChange={(e) => setText(e.target.value)}
