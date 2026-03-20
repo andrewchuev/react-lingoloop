@@ -668,7 +668,7 @@ export default function LingoLoopReader() {
                             </div>
                         </ControlCard>
 
-                        <ControlCard label="Repeats" className="xl:col-span-2">
+                        <ControlCard label="Repeats" className="xl:col-span-3">
                             <input
                                 id="repeatCount"
                                 type="number"
@@ -680,7 +680,7 @@ export default function LingoLoopReader() {
                             />
                         </ControlCard>
 
-                        <ControlCard label="Pause between repeats (ms)" className="xl:col-span-2">
+                        <ControlCard label="Pause between repeats (ms)" className="xl:col-span-3">
                             <input
                                 id="pauseBetweenRepeats"
                                 type="number"
@@ -693,9 +693,8 @@ export default function LingoLoopReader() {
                             />
                         </ControlCard>
 
-                        <ControlCard label="Playback mode" className="xl:col-span-8 flex flex-col gap-3">
-                            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-
+                        <ControlCard label="Playback mode" className="xl:col-span-6 flex flex-col gap-3">
+                            <div className="flex justify-between gap-2">
 
                                 <div className="inline-flex rounded-2xl border border-slate-300 bg-slate-100 p-1 dark:border-slate-700 dark:bg-slate-950/60">
                                     <button
@@ -724,13 +723,15 @@ export default function LingoLoopReader() {
                                         Sentence by sentence
                                     </button>
                                 </div>
+
+                                <div className="flex items-center text-xs text-slate-500 dark:text-slate-400">
+                                    {playbackMode === "sentence-by-sentence"
+                                        ? `Detected sentences: ${sentenceSegments.length}`
+                                        : "The entire text will be played as one block."}
+                                </div>
                             </div>
 
-                            <div className="text-xs text-slate-500 dark:text-slate-400">
-                                {playbackMode === "sentence-by-sentence"
-                                    ? `Detected sentences: ${sentenceSegments.length}`
-                                    : "The entire text will be played as one block."}
-                            </div>
+
                         </ControlCard>
 
 
